@@ -31,8 +31,8 @@ install_json_build:
 
 package_json_build:
   cmd.run:
-    - name: fpm -s dir -t deb -n "json_build" -v {{ VERSION }} -C /tmp/json_build usr
-    - creates: /vagrant/json-build_{{ VERSION }}_amd64.deb
+    - name: fpm -s dir -t deb -n "postgres-json-build" -v {{ VERSION }} -C /tmp/json_build usr
+    - creates: /vagrant/postgres-json-build_{{ VERSION }}_amd64.deb
     - cwd: /vagrant
     - user: vagrant
     - require:

@@ -29,8 +29,8 @@ install_session_analytics:
 
 package_session_analytics:
   cmd.run:
-    - name: fpm -s dir -t deb -n "session_analytics" -v {{ VERSION }} -C /tmp/session_analytics usr
-    - creates: /vagrant/session-analytics_{{ VERSION }}_amd64.deb
+    - name: fpm -s dir -t deb -n "postgres-session-analytics" -v {{ VERSION }} -C /tmp/session_analytics usr
+    - creates: /vagrant/postgres-session-analytics_{{ VERSION }}_amd64.deb
     - cwd: /vagrant
     - user: vagrant
     - require:

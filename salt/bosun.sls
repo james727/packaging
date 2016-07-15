@@ -8,7 +8,7 @@ create_build_dir:
 download_bosun:
   file.managed:
     - name: /tmp/bosun/usr/local/bin/bosun
-    - source: https://github.com/bosun-monitor/bosun/releases/download/0.5.0-rc1/bosun-linux-amd64
+    - source: https://github.com/bosun-monitor/bosun/releases/download/0.5.0/bosun-linux-amd64
     - source_hash: md5=d9ea0e87224f498a5b77597b0f447d46
     - user: vagrant
     - makedirs: True

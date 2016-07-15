@@ -30,8 +30,8 @@ install_hll:
 
 package_hll:
   cmd.run:
-    - name: fpm -s dir -t deb -n "hll" -v {{ VERSION }} -C /tmp/hll usr
-    - creates: /vagrant/hll_{{ VERSION }}_amd64.deb
+    - name: fpm -s dir -t deb -n "postgres-hll" -v {{ VERSION }} -C /tmp/hll usr
+    - creates: /vagrant/postgres-hll_{{ VERSION }}_amd64.deb
     - cwd: /vagrant
     - user: vagrant
     - require:

@@ -1,6 +1,8 @@
 if ! getent passwd bosun > /dev/null; then
-  useradd --system --group --no-create-home --home /internal/bosun bosun
+  useradd --system --user-group --no-create-home --home /internal/bosun bosun
 fi
+
+chmod +x /usr/local/bin/bosun
 
 # Restart service if running
 if service bosun status | grep -q 'start/running'; then
