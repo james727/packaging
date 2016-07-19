@@ -27,6 +27,12 @@ Vagrant::configure("2") do |config|
     end
   end
 
+  config.vm.define "duo" do |duo|
+    duo.vm.hostname = "duo"
+    duo.vm.provision :salt, &provision_salt
+  end
+
+
   config.vm.define "tester" do |tester|
   end
 end

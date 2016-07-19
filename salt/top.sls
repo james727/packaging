@@ -5,3 +5,5 @@ base:
     - bosun
   'postgres':
     - postgres
+  'duo':
+    - duo_openvpn
