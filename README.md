@@ -18,9 +18,16 @@ Packaging machines currently available:
 * bosun
 * postgres (builds a range of postgres extensions)
 
-The `upload.sh` script should be used to push any updated packages to an S3 backed apt repository via [deb-s3](https://github.com/krobertson/deb-s3), which you'll need to install if it's not already. This script expects two environment variables to be set:
-* BUCKET: The S3 bucket holding the apt repo
-* GPG_KEY: The GPG key ID used for signing the repository manifests
+## Pushing updated packages to the heap repo
+
+The `upload.sh` script should be used to push any updated packages to an S3 backed apt repository. To use it:
+- install [deb-s3](https://github.com/krobertson/deb-s3)
+- `export BUCKET=heap-apt-repo` (the S3 bucket holding the apt repo)
+- `export GPG_KEY=02F09197` (The GPG key ID used for signing the repository manifests)
+- `brew install gpg`
+- Get the GPG key from someone and then run `gpg --import <path-to-key>`
+- `../infrastructure/terraform/getTemporaryCredentials.coffee` (from the http://github.com/heap/infrastructure repo)
+- `./upload.sh <path-to-file>`
 
 # How do I add a new package?
 If your package doesn't fit nicely into one of the existing vagrant machines then you'll need to create a new instance. Check the `Vagrantfile` for the current usage. Each new machine must have the hostname set so that it can be targetted via Salt, you'll need to add this targetting to `salt/top.sls`.
