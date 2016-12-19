@@ -2,6 +2,7 @@ include:
   - .hll
   - .json_build
   - .session_analytics
+  - .pgbouncer
 
 add_pgdg_repo:
   pkgrepo.managed:
