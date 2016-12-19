@@ -26,7 +26,7 @@ make_pgbouncer:
   cmd.run:
     - name: |
         ./autogen.sh
-        ./configure
+        ./configure --prefix=/usr
         make
     - cwd: /home/vagrant/pgbouncer
     - creates: /home/vagrant/pgbouncer/pgbouncer
@@ -36,6 +36,17 @@ install_pgbouncer:
     - name: make install DESTDIR=/tmp/pgbouncer
     - cwd: /home/vagrant/pgbouncer
     - creates: /tmp/pgbouncer/usr
+
+# The pgbouncer binary in the official packages is located in `<prefix>/sbin`.
+# We'd like to be consistent with the official packages so we can reuse the same
+# systemd definitions using the path to the binary etc.
+# However, the `make install` step above installs the binary in `${DESTDIR}/<prefix>/bin`
+# instead, so this step manually moves it to the location we want.
+move_to_sbin:
+  file.rename:
+    - name: /tmp/pgbouncer/usr/sbin/pgbouncer
+    - source: /tmp/pgbouncer/usr/bin/pgbouncer
+    - makedirs: True
 
 package_pgbouncer:
   cmd.run:
