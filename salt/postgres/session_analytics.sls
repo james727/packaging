@@ -1,5 +1,4 @@
-{% set VERSION = '0.0.1' %}
-# No version for session_analytics, use this as a crude release version
+{% set VERSION = '0.0.2' %}
 
 make_session_analytics:
   cmd.run:
