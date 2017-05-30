@@ -6,6 +6,7 @@ install_base_packages:
       - g++
       - make
       - git
+      - cmake
 
 install_fpm:
   gem.installed:

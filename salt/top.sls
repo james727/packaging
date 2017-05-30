@@ -7,3 +7,5 @@ base:
     - postgres
   'duo':
     - duo_openvpn
+  'fluentd':
+    - fluentd
