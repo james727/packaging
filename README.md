@@ -18,6 +18,8 @@ Packaging machines currently available:
 * bosun
 * postgres (builds a range of postgres extensions)
 
+`vagrant up` might fail with error on `fpm` gem install. In this case, SSH into the failing box and run `sudo gem install fpm --no-rdoc --no-ri` manually.
+
 ## Pushing updated packages to the heap repo
 
 The `upload.sh` script should be used to push any updated packages to an S3 backed apt repository. To use it:
@@ -26,8 +28,11 @@ The `upload.sh` script should be used to push any updated packages to an S3 back
 - `export GPG_KEY=02F09197` (The GPG key ID used for signing the repository manifests)
 - `brew install gpg`
 - Get the GPG key from someone and then run `gpg --import <path-to-key>`
-- `../infrastructure/terraform/getTemporaryCredentials.coffee` (from the http://github.com/heap/infrastructure repo)
+- `../infrastructure/terraform/getTemporaryCredentials.coffee --readwrite` (from the http://github.com/heap/infrastructure repo, make sure that you have terraform installed and setup)
 - `./upload.sh <path-to-file>`
+
+Pushing packages to Heap apt repository does not guarantee that the latest version will be installed by salt, although it is possible to set this up.
+Please refer to [heap/infrastructure](https://github.com/heap/infrastructure) for details.
 
 # How do I add a new package?
 If your package doesn't fit nicely into one of the existing vagrant machines then you'll need to create a new instance. Check the `Vagrantfile` for the current usage. Each new machine must have the hostname set so that it can be targetted via Salt, you'll need to add this targetting to `salt/top.sls`.
