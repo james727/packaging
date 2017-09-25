@@ -32,11 +32,16 @@ Vagrant::configure("2") do |config|
     duo.vm.provision :salt, &provision_salt
   end
 
+  config.vm.define "heap-openvpn" do |heap|
+    heap.vm.hostname = "heap-openvpn"
+    heap.vm.provision :salt, &provision_salt
+    heap.ssh.forward_agent = true
+  end
+
   config.vm.define "fluentd" do |fluentd|
     fluentd.vm.hostname = "fluentd"
     fluentd.vm.provision :salt, &provision_salt
   end
-
 
   config.vm.define "tester" do |tester|
   end

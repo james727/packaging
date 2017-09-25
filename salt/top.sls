@@ -9,3 +9,5 @@ base:
     - duo_openvpn
   'fluentd':
     - fluentd
+  'heap-openvpn':
+    - heap_openvpn
