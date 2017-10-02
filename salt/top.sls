@@ -11,3 +11,5 @@ base:
     - fluentd
   'heap-openvpn':
     - heap_openvpn
+  'librdkafka':
+    - librdkafka
