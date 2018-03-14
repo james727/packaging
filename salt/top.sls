@@ -5,6 +5,8 @@ base:
     - bosun
   'postgres':
     - postgres
+  'postgres10':
+    - postgres10
   'duo':
     - duo_openvpn
   'fluentd':

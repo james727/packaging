@@ -27,6 +27,15 @@ Vagrant::configure("2") do |config|
     end
   end
 
+  config.vm.define "postgres10" do |postgres|
+    postgres.vm.hostname = "postgres10"
+    postgres.vm.provision :salt, &provision_salt
+
+    if File.directory?(File.expand_path("../heap"))
+      postgres.vm.synced_folder "../heap/docker/citus/session_analytics", "/home/vagrant/session_analytics"
+    end
+  end
+
   config.vm.define "duo" do |duo|
     duo.vm.hostname = "duo"
     duo.vm.provision :salt, &provision_salt
