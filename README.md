@@ -22,17 +22,29 @@ Packaging machines currently available:
 
 ## Pushing updated packages to the heap repo
 
+Getting the GPG key used for signing the repository manifests:
+- `brew install gpg`
+- The contents of the gpg key, and its passphrase are stored in vault under `secret/apt_gpg_key`. Refer to https://paper.dropbox.com/doc/Vault-Operations-Manual--ALTMb1umEuCN4jIvBUwl6Os~Ag-Kzl3ydBffSVb8rWSP8ONM for reading secrets from vault.
+- Copy the gpg contents from (and including) `-----BEGIN PGP PRIVATE KEY BLOCK-----` to (and including) `-----END PGP PRIVATE KEY BLOCK-----` to a local file.
+- The passphrase for the gpg key is at the bottom of the vault output.
+- Run `gpg --import <path-to-key>`. You will need to enter the passphrase.
+
 The `upload.sh` script should be used to push any updated packages to an S3 backed apt repository. To use it:
 - install [deb-s3](https://github.com/krobertson/deb-s3)
 - `export BUCKET=heap-apt-repo` (the S3 bucket holding the apt repo)
-- `export GPG_KEY=02F09197` (The GPG key ID used for signing the repository manifests)
-- `brew install gpg`
-- Get the GPG key from someone and then run `gpg --import <path-to-key>`
+- `export GPG_KEY=02F09197` (the ID of the above gpg key - essentially a hash of the key contents)
 - `../infrastructure/terraform/getTemporaryCredentials.coffee --readwrite` (from the http://github.com/heap/infrastructure repo, make sure that you have terraform installed and setup)
 - `./upload.sh <path-to-file>`
+- Enter the gpg passphrase when prompted.
 
 Pushing packages to Heap apt repository does not guarantee that the latest version will be installed by salt, although it is possible to set this up.
 Please refer to [heap/infrastructure](https://github.com/heap/infrastructure) for details.
+
+## Viewing current packages
+You may want to list out the packages currently present in the Heap apt repository.
+- If you don't have temporary aws credentials, run `getTemporaryCredentials.coffee` as outlined above.
+- `export BUCKET=heap-apt-repo`
+- `deb-s3 list --bucket $BUCKET`
 
 # How do I add a new package?
 If your package doesn't fit nicely into one of the existing vagrant machines then you'll need to create a new instance. Check the `Vagrantfile` for the current usage. Each new machine must have the hostname set so that it can be targetted via Salt, you'll need to add this targetting to `salt/top.sls`.
