@@ -46,6 +46,19 @@ You may want to list out the packages currently present in the Heap apt reposito
 - `export BUCKET=heap-apt-repo`
 - `deb-s3 list --bucket $BUCKET`
 
+# Uploading nodejs point version
+It's not possible to install arbitrary nodejs versions using apt, since only some node versions are kept in the apt repositories.
+However, builds of all versions are archived and available:
+- https://deb.nodesource.com/node_4.x/pool/main/n/nodejs/
+- https://deb.nodesource.com/node_6.x/pool/main/n/nodejs/
+- https://deb.nodesource.com/node_8.x/pool/main/n/nodejs/
+- etc
+
+It isn't necessary to provision and build the specific version since these are already built.
+For example, to upload node 6.14.3:
+- `curl -o nodejs_6.14.3-1nodesource1_amd64.deb https://deb.nodesource.com/node_6.x/pool/main/n/nodejs/nodejs_6.14.3-1nodesource1_amd64.deb`
+- Then use `upload.sh` script as described above.
+
 # How do I add a new package?
 If your package doesn't fit nicely into one of the existing vagrant machines then you'll need to create a new instance. Check the `Vagrantfile` for the current usage. Each new machine must have the hostname set so that it can be targetted via Salt, you'll need to add this targetting to `salt/top.sls`.
 
