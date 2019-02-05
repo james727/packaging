@@ -1,4 +1,4 @@
-{% set VERSION = '1.1' %}
+{% set VERSION = '1.2' %}
 
 make_session_analytics:
   cmd.run:
